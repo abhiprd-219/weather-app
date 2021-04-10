@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" /><link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/3c5be74ba6.js"></script>
+        <title>Weather Web</title>
+    </head>
+    <body>  
+<div id="search-bar">
+ <input type="text" id="input" value="Delhi" placeholder="Write your country or city."><button id="button">Search</button></div>  
+<div id="weather"></div>
+<div id="error"><ul><li><h3>
+Something Went Wrong.</h3></li>
+<li><h4>Please Try Again Later.</h4>
+</li></div>
+
+
+<script>
+    var input = document.getElementById("input")
+    var d = document.getElementById("error")
+    var button = document.getElementById("button")
+var info = document.getElementById("weather")
+    var KELVIN = 273.15
+//date
+const lang = navigator.language; 
+    let date = new Date()  
+    let dayNumber = date.getDate()
+//    let dayName = date.toLocaleString(lang,{weekday: 'long'})   
+    let month = date.getMonth()    
+    let monthName = date.toLocaleString(lang,{month: 'long'})
+//    let year = date.getFullYear()    
+//search  
+button.addEventListener('click',function(){fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=8d24787fa0102884fed55aae44f24567')
+.then(response => response.json())
+.then(data => {
+  var name = data.name 
+  var country = data.sys.country
+  var temp = 
+  Math.floor(data.main.temp - KELVIN)
+  var hum = data.main.humidity
+  var about = data["weather"]["0"]["description"].toUpperCase()
+  var wind = Math.floor(data.wind.speed*2.237)
+  var icon=data["weather"]["0"]["icon"]
+var tempF= Math.floor(temp*1.80 + 32)
+  var iconurl="https://openweathermap.org/img/wn/"+icon +"@2x.png";
+  
+info.innerHTML=`<ul><li><h2>
+${dayNumber}-${monthName}</h2></li>
+<li><h3>${name},${country}</h3></li>
+<li><img src='${iconurl}'></li>
+<li><h1>${temp}&degC</h1>
+<h2>${tempF}&degF</h2></li>
+<li><h2>${about}</h2></li>
+<li><h4>Humidity - ${hum}%</h4>
+<h4> Windy - ${wind}km/h</h4></li>
+<li></li><li><h4>Created By Abhiprd219</h4></li><li>
+<a class="fa fa-facebook" href="https://www.facebook.com/aziz.dev2021" ></a>
+<a class="fa fa-github"   href="https://github.com/abhiprd-219" ></a>
+    
+    
+<a class="fa fa-instagram" href="https://www.instagram.com/invites/contact/?i=2aie2d276889&utm_content=4k1xq38"></a>
+<a class="fa fa-code" href="https://www.sololearn.com/Profile/17554249/?ref=app"></a>    
+</li></ul>`
+})
+.catch(err => d.style.display="flex")
+})
+</script>
+<script>
+var images = [
+"https://i.imgur.com/ghGir1p.jpg",
+"https://i.imgur.com/QS9MRUx.jpg",
+"https://i.imgur.com/Pxaw02o.jpg",
+"https://i.imgur.com/mQyLNHa.jpg",
+"https://i.imgur.com/Hf4CPfp.jpg",
+"https://i.imgur.com/ghGir1p.jpg"
+]
+var i = Math.ceil(Math.random() * 5) 
+var body =document.querySelector("body")
+body.style.background= `url("${images[i]}")`  
+body.style.backgroundSize="cover"
+d.style.background= `url("${images[i]}")`  
+d.style.backgroundSize="cover"
+</script>          
+    </body>
+</html>
